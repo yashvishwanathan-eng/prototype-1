@@ -1,0 +1,142 @@
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+import random
+
+# -------------------------------------------------
+# PAGE CONFIG (must be first Streamlit command)
+# -------------------------------------------------
+st.set_page_config(
+    page_title="Complaint Automation Dashboard",
+    layout="wide"
+)
+
+# -------------------------------------------------
+# SIMPLE SAMPLE DATA (no bugs guaranteed)
+# -------------------------------------------------
+data = {
+    "Batch": ["B101","B102","B101","B103","B102","B101","B104","B103"],
+    "Category": ["Delivery","Damage","Quality","Delivery","Quality","Damage","Delivery","Quality"],
+    "Severity": [70,90,60,85,55,95,65,80]
+}
+
+df = pd.DataFrame(data)
+
+
+# -------------------------------------------------
+# SIDEBAR
+# -------------------------------------------------
+st.sidebar.title("📊 Complaint System")
+
+st.sidebar.metric("Total Complaints", len(df))
+st.sidebar.metric("High Severity", sum(df["Severity"] > 80))
+st.sidebar.metric("Batches", df["Batch"].nunique())
+
+st.sidebar.success("Demo Ready")
+
+
+# =================================================
+# TAB 1 – PROCESS COMPLAINT
+# =================================================
+def process_tab():
+
+    st.header("📝 Process Complaint")
+
+    text = st.text_area("Enter complaint here")
+
+    if st.button("Process"):
+
+        category = random.choice(["Delivery", "Damage", "Quality"])
+        sentiment = random.choice(["Positive", "Neutral", "Negative"])
+        severity = random.randint(50, 100)
+
+        c1, c2, c3 = st.columns(3)
+
+        c1.metric("Category", category)
+        c2.metric("Sentiment", sentiment)
+        c3.metric("Severity", severity)
+
+        if severity > 80:
+            st.error("High Priority 🚨")
+        else:
+            st.success("Normal Priority ✅")
+
+
+# =================================================
+# TAB 2 – PATTERN DASHBOARD
+# =================================================
+def pattern_tab():
+
+    st.header("📊 Pattern Dashboard")
+
+    st.subheader("Complaint Table")
+    st.dataframe(df, use_container_width=True)
+
+    st.subheader("Batch Count Chart")
+
+    batch_count = df.groupby("Batch").size().reset_index(name="Count")
+    fig = px.bar(batch_count, x="Batch", y="Count")
+
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.subheader("Category Distribution")
+
+    fig2 = px.pie(df, names="Category")
+    st.plotly_chart(fig2, use_container_width=True)
+
+
+# =================================================
+# TAB 3 – INTERVENTIONS
+# =================================================
+def intervention_tab():
+
+    st.header("⚡ Interventions")
+
+    st.write("Quality Hold")
+    st.progress(90)
+
+    st.write("Supplier Alert")
+    st.progress(60)
+
+    st.write("Refund Processing")
+    st.progress(30)
+
+
+# =================================================
+# TAB 4 – ROI
+# =================================================
+def roi_tab():
+
+    st.header("💰 ROI Dashboard")
+
+    c1, c2, c3 = st.columns(3)
+
+    c1.metric("Auto Resolved", "70%")
+    c2.metric("Manual Reduced", "50%")
+    c3.metric("Cost Saved", "₹1.2L")
+
+    months = ["Jan","Feb","Mar","Apr","May"]
+    savings = [10,20,25,35,50]
+
+    fig = px.line(x=months, y=savings)
+    st.plotly_chart(fig, use_container_width=True)
+
+
+# =================================================
+# MAIN TABS
+# =================================================
+tab1, tab2, tab3, tab4 = st.tabs(
+    ["Process", "Patterns", "Interventions", "ROI"]
+)
+
+with tab1:
+    process_tab()
+
+with tab2:
+    pattern_tab()
+
+with tab3:
+    intervention_tab()
+
+with tab4:
+    roi_tab()
