@@ -12,7 +12,7 @@ An intelligent complaint processing system built with Streamlit that automates c
 - **📊 Pattern Detection**: Identifies trends across batches and categories
 - **⚡ Automated Interventions**: Triggers quality holds, supplier alerts, and refund processing
 - **💰 ROI Dashboard**: Tracks cost savings and automation metrics
-- **📈 Real-time Analytics**: Interactive visualizations with Plotly
+- **📈 Real-time Analytics**: Interactive visualizations with Plotly  
 
 ## 🎯 Demo
 
@@ -106,7 +106,7 @@ complaint-automation-dashboard/
 └── .gitignore            # Git ignore file
 ```
 
-## 🔧 Configuration
+## Configuration
 
 The dashboard uses demo data by default. To connect to real data:
 
