@@ -133,23 +133,6 @@ Your Name
 - GitHub: [@yourusername](https://github.com/yourusername)
 - Email: your.email@example.com
 
-## 🙏 Acknowledgments
-
-- Built with [Streamlit](https://streamlit.io/)
-- Visualizations powered by [Plotly](https://plotly.com/)
-- Data handling with [Pandas](https://pandas.pydata.org/)
-
-## 📸 Screenshots
-
-### Process Complaint Tab
-![Process Tab](screenshots/process.png)
-
-### Pattern Detection
-![Patterns Tab](screenshots/patterns.png)
-
-### ROI Dashboard
-![ROI Tab](screenshots/roi.png)
-
 ---
 
 ⭐ Star this repo if you find it useful!
